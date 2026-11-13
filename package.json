@@ -1,0 +1,30 @@
+{
+  "name": "pine-crypto",
+  "private": true,
+  "version": "0.1.0",
+  "workspaces": [
+    "apps/web",
+    "apps/api",
+    "apps/desktop"
+  ],
+  "scripts": {
+    "dev": "concurrently -k \"npm:dev:web\" \"npm:dev:api\"",
+    "dev:web": "npm --workspace apps/web run dev",
+    "dev:api": "npm --workspace apps/api run dev",
+    "build": "npm --workspace apps/web run build && npm --workspace apps/api run build",
+    "desktop": "npm --workspace apps/desktop run start",
+    "desktop:dist": "npm run build && npm --workspace apps/desktop run dist",
+    "contract:compile": "hardhat compile",
+    "contract:deploy:sepolia": "hardhat run contracts/scripts/deploy.js --network baseSepolia",
+    "contract:test": "hardhat test"
+  },
+  "devDependencies": {
+    "@nomicfoundation/hardhat-toolbox": "^5.0.0",
+    "concurrently": "^9.1.2",
+    "hardhat": "^2.22.18"
+  },
+  "dependencies": {
+    "@openzeppelin/contracts": "^5.2.0",
+    "dotenv": "^16.4.7"
+  }
+}
